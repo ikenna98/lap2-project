@@ -19,7 +19,6 @@ async function login(req, res) {
             throw new Error('No user with this username')
         }
         const authed = await bcrypt.compare(req.body.password, user.password);
-        console.log(authed)
         if (!!authed) {
             res.status(200).json({ user: user.username })
         } else {
