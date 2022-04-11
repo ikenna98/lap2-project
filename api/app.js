@@ -10,8 +10,10 @@ app.get('/', (req, res) => {
 
 const userRoutes = require('./routes/usersRoutes');
 const authRoutes = require('./routes/authRoutes');
+const habitRoutes = require('./routes/habitRoutes');
 
 app.use('/users', userRoutes);
 app.use(authRoutes);
+app.use('/habits', habitRoutes);
 
 module.exports = app
