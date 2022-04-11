@@ -7,7 +7,7 @@ const db = require('../../../dbConfig');
 const { TestWatcher } = require('jest');
 
 const userOne = {
-    id: '6',
+    id: '1',
     first_name: 'test',
     surname: 'user',
     username: 'test_user',
@@ -15,7 +15,7 @@ const userOne = {
 }
 
 const userTwo = {
-    id: '5',
+    id: '2',
     first_name: 'futureproof',
     surname: 'mitnick',
     username: 'fpmitnick',
@@ -63,7 +63,11 @@ describe('User', () => {
                 .mockResolvedValueOnce({rows:{}})
                 .mockResolvedValueOnce({rows: [userTwo]})
             const result = await User.register(userTwo.first_name, userTwo.surname, userTwo.username, userTwo.password)
+            expect(result).toHaveProperty('id', '2');
             expect(result).toHaveProperty('username', 'fpmitnick');
+            expect(result).toHaveProperty('first_name', 'futureproof');
+            expect(result).toHaveProperty('surname', 'mitnick');
+            expect(result).toHaveProperty('password', 'password');          
         })
 
         test('user already exists', async () => {
