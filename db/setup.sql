@@ -17,6 +17,7 @@ CREATE TABLE habits (
     current_streak INT DEFAULT 0,
     frequency VARCHAR,
     repetitions INT,
+    date DATE DEFAULT CURRENT_DATE,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
