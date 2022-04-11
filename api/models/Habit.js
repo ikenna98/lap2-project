@@ -69,10 +69,10 @@ class Habit {
         })
     }
 
-    static destroy(id) {
+    destroy() {
         return new Promise(async (resolve, reject) => {
             try {
-                await db.query(`DELETE FROM habits WHERE habit_id = $1;`, [ id ]);
+                await db.query(`DELETE FROM habits WHERE habit_id = $1;`, [ this.habit_id ]);
                 resolve('Habit deleted')
             } catch (error) {
                 reject ('Error deleting habit')
