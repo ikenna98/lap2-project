@@ -7,7 +7,7 @@ const db = require('../../../dbConfig');
 const { TestWatcher } = require('jest');
 
 const userOne = {
-    id: '6',
+    id: '1',
     first_name: 'test',
     surname: 'user',
     username: 'test_user',
@@ -15,7 +15,7 @@ const userOne = {
 }
 
 const userTwo = {
-    id: '5',
+    id: '2',
     first_name: 'futureproof',
     surname: 'mitnick',
     username: 'fpmitnick',
