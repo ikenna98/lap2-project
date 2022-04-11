@@ -65,6 +65,17 @@ class Habit {
             }
         })
     }
+
+    static destroy(id) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await db.query(`DELETE FROM habits WHERE habit_id = $1;`, [ id ]);
+                resolve('Habit deleted')
+            } catch (error) {
+                reject ('Error deleting habit')
+            }
+        })
+    }
 }
 
 module.exports = Habit
