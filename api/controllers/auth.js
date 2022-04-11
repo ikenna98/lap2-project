@@ -12,4 +12,22 @@ async function register(req, res) {
     }
 }
 
-module.exports = { register }
+async function login(req, res) {
+    try {
+        const user = await User.findByUsername(req.body.username)
+        if (!user) {
+            throw new Error('No user with this username')
+        }
+        const authed = await bcrypt.compare(req.body.password, user.password);
+        console.log(authed)
+        if (!!authed) {
+            res.status(200).json({ user: user.username })
+        } else {
+            throw new Error('User cannot be authenticated')
+        }
+    } catch (error) {
+        res.status(401).json({ error })
+    }
+}
+
+module.exports = { register, login }
