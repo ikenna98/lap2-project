@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="dashboard-bg" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="index.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+    <section class="dashboard-page">
+        <div class="dashboard">
+            <div class="dashboard-box">
+                <nav>
+                    <ul class="dashboard-nav">
+                        <li>Account</li>
+                        <li>Log Out</li>
+                    </ul>
+                </nav>
+                <h1>App Name</h1>
+                <h3>Slogan</h3>
+                <h3>Choose A Goal..</h3>
+                <p></p>
+                <form class="add-habit">
+                    <input class="habit" type="text" name="habit" placeholder="Enter Goal..." required/>
+                    <input class="reps" type="number" name="reps" placeholder="How often?" min="1" max="10" required/>
+                <div class="frequency">
+                    <label for="timeframe">Frequency: </label>
+                    <select name="timeframe" id="timeframe">
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                </div>
+                <input id="submit" type="submit" value="Add Goal!">
+                </form>
+                <div class="habits">
+                    <ul class="habit-list">
+                        <li>Loading...</li>
+
+                    </ul>
+
+                </div>
+                <div class="streak"></div>
+            </div>
+        </div>
+        <footer class="dashboard-footer">
+            <nav>
+                <a href="#">About</a>
+                <a href="#">Help</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">iPhone App</a>
+                <a href="#">Android App</a>
+                <a href="#">Settings</a>
+                <span>&copy; 2022 App/Company Name</span>
+            </nav> 
+        </footer>
+    </section>
+</body>
+</html>
+
+
+
+
+<!-- <section class="container">
+    <header>
+        <h1>App Name</h1>
+        <h2>App Slogan</h2>
+    </header>
+    <nav>
+        <ul class="nav">
+            <li>Account</li>
+            <li>Sign Out</li>
+        </ul>
+    </nav>
+    <h2>Choose a goal...</h2>
+    <p></p>
+    <div class="habit-box">
+        <form class="add-habit">
+            <input class="habit" type="text" name="habit" placeholder="Enter Goal.." required/>
+            <input class="reps" type="number" placeholder="How often?" min="1" max="10" required/>
+        <div class="frequency">
+            <label for="duration">Frequency: </label>
+            <select name="duration" id="duration">
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </div>
+        <input type="submit" value="Add Goal!">
+    </div>
+    </form>
+    <div class="added-goals">
+        
+    </div>
+    <footer class="login-footer">
+        <nav>
+            <a href="#">About</a>
+            <a href="#">Help</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">iPhone App</a>
+            <a href="#">Android App</a>
+            <a href="#">Settings</a>
+            <span>&copy; 2022 App/Company Name</span>
+        </nav> 
+    </footer>
+</section>    
+</body>
+</html>  -->

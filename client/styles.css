@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.login-page{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr min-content;
+}
+
+.image{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    background-image: url('/client/images/exercise3.jpg');
+}
+
+.login{
+    background-image: url('/client/images/night.jpg');
+    font-family: roboto;
+}
+
+.image, .login{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.login-box{
+    background-color: rgb(240, 187, 15);
+    border: 1px solid black;
+    height: 50%;
+    width: 40%;
+    margin: 30% auto;
+}
+
+h1, h3, h5, form{
+    text-align: center;
+    margin: 30px;
+}
+
+form{
+    padding: 20px 0;
+}
+
+form input{
+    margin: 20px;
+    margin-left: -1%;
+    padding: 20px;
+    border-radius: 8px;
+    width: 65%;
+}
+
+
+form a{
+    text-decoration: none;
+}
+
+form a:hover{
+    text-decoration: underline;
+}
+
+button, #submit{
+    margin: 20px 0;
+    padding: 15px;
+    width: 45%;   
+    background-color: #1877f2;
+    color: white;
+    font-family: lato;
+    font-weight: bold;
+    transition: background-color 0.5s;
+}
+
+button:hover, #submit{
+    background-color: #0b438d;
+}
+
+
+.login p{
+    font-size: 16px;
+    color: #1877f2;
+}
+
+.register-btn {
+    margin-top: 10%;
+    background-color: blueviolet;
+
+}
+
+.new-account{
+    background: rgb(240, 187, 15);
+    border: 1px solid black;
+    position:fixed;
+    top: 25%;
+    left: 62.5%;
+    width: 25%;
+    height: 60%;
+    display: none;
+}
+
+.popup-close{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+}
+
+
+
+.register-btn:hover{
+    background-color: rgb(79, 11, 144);
+}
+
+footer{
+    grid-column: 1/-1;
+    margin: 15px 0;
+    font-family: roboto;
+    color: rgb(91,113,131);
+    font-size: 16px;
+    text-align: center;
+    padding-right: 10px;
+    width: 100%;
+}
+
+.login-footer a{
+    text-decoration: none;
+    color: #1877f2;
+    margin: 25px;
+}
+
+
+/* Register Page */
+.dashboard-bg{
+    height: 100vh;
+    width: 100%;
+    background-image: url('/client/images/night2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: roboto;
+}
+.dashboard-page{
+    width: 1000px;
+    margin: 100px auto;
+    background-color: rgb(255, 166, 2) ;
+}
+
+.dashboard-footer a{
+    text-decoration: none;
+    color: #1877f2;
+    margin: 15px;
+}
+
+/* Index page */
+
+.dashboard-nav{
+    display: flex;
+    justify-content: right;
+    list-style-type: none;
+}
+
+.dashboard-nav li{
+    margin: 20px;
+    color: #1877f2;
+}
+
+.dashboard-nav li:hover{
+    background-color: rgb(221, 145, 5) ;
+}
+
+.dashboard-footer{
+   padding: 5px 0;
+}
+
+.dashboard-footer a:hover, .popup-close:hover{
+    background-color: rgb(221, 145, 5);
+}
+
+button, .dashboard-nav li, #timeframe, #submit {
+    cursor: pointer;
+}
+
+#timeframe{
+    font-family: lato;
+    font-size: 18px;
+}
