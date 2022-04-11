@@ -5,7 +5,7 @@ async function index(req, res) {
         const users = await User.all
         res.status(200).json(users)
     } catch (error) {
-        res.status(500).send({err})
+        res.status(500).send({error})
     }
 }
 
