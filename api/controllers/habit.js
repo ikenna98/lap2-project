@@ -21,13 +21,9 @@ async function getHabitById(req, res) {
 async function getHabitsByUsername(req, res) {
     try {
         const habitsData = await Habit.findHabitsByUsername(req.params.username)
-        if (!habitsData[0]) {
-            res.status(404).json({msg: `User does not exist`})
-        } else {
-            res.status(200).json(habitsData)
-        }
-    } catch (error) {
-        res.status(500).send({error})
+        res.status(200).json(habitsData)
+    } catch (err) {
+        res.status(404).send({ err: err.message });
     }
 }
 

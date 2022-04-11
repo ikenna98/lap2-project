@@ -38,16 +38,21 @@ class Habit {
     static findHabitsByUsername(username) {
         return new Promise(async (resolve, reject) => {
             try {
-                const checkUsername = await db.query(`SELECT * FROM users WHERE username = $1;`, [ username ])
-                if (checkUsername) {
+                const checkUsername = await db.query(`SELECT * FROM users WHERE username = $1;`, [ username ]);
+                // const userId = checkUsername.id;
+                // const haveHabits = await db.query(`SELECT * FROM habits INNER JOIN users ON habits.user_id = users.id WHERE users.username = $1`, [ username ]);
+                if (checkUsername.rows[0]) {
                     const userHabitData = await db.query(`SELECT * FROM habits JOIN users ON habits.user_id = users.id WHERE users.username = $1;`, [ username ]);
                     let userHabits = userHabitData.rows.map(h => new Habit(h))
+                    if (!userHabits[0]) {
+                        throw new Error(`User has no habits`)
+                    }     
                     resolve(userHabits)
                 } else {
                     throw new Error(`Username does not exist`)
                 }
-            } catch (error) {
-                reject(`Error getting this users data: `, error)
+            } catch (err) {
+                reject(err);
             }
         })
     }
