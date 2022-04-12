@@ -84,6 +84,84 @@ describe('login.html', () => {
                 expect(loginBtn).toBeTruthy();
                 expect(loginBtn.textContent).toEqual('Login');
             })
+
+            it('it has a forgotten password link', () => {
+                expect(forgottenPasswordLink).toBeTruthy();
+                expect(forgottenPasswordLink.href).toEqual('http://localhost/#');
+                expect(forgottenPasswordLink.textContent).toEqual('Forgotten Password?');
+            })
+        })
+
+        describe('register form', () => {
+            let registerDiv;
+            let createAccountMsg;
+            let quickAndEasyMsg;
+            let registerForm;
+            let firstName;
+            let surname;
+            let username;
+            let password;
+            let registerBtn;
+
+            beforeEach(() => {
+                registerDiv = document.getElementById('register-div');
+                createAccountMsg = document.getElementById('create-msg');
+                quickAndEasyMsg = document.getElementById('quick-and-easy-msg');
+                registerForm = document.getElementById('register-form');
+                firstName = document.getElementById('first-name');
+                surname = document.getElementById('last-name');
+                username = document.getElementById('username-register');
+                password = document.getElementById('password-register');
+                registerBtn = document.getElementById('register-btn');
+            })
+
+            it('the register div exists', () => {
+                expect(registerDiv).toBeTruthy();
+            })
+
+            it('it has a header with the right message', () => {
+                expect(createAccountMsg).toBeTruthy();
+                expect(createAccountMsg.textContent).toEqual('Create An Account');
+            })
+
+            it('it has a tagline with the right message', () => {
+                expect(quickAndEasyMsg).toBeTruthy();
+                expect(quickAndEasyMsg.textContent).toEqual("It's quick and easy!");
+            })
+
+            it('the register form exists', () => {
+                expect(registerForm).toBeTruthy();
+            });
+
+            it('it has a text input for first name', () => {
+                expect(firstName).toBeTruthy();
+                expect(firstName.type).toBe('text');
+                expect(firstName.placeholder).toEqual('Enter First Name');
+            });
+
+            it('it has a text input for surname', () => {
+                expect(surname).toBeTruthy();
+                expect(surname.type).toBe('text');
+                expect(surname.placeholder).toEqual('Enter Last Name');
+            });
+
+            it('it has a text input for username', () => {
+                expect(username).toBeTruthy();
+                expect(username.type).toBe('text');
+                expect(username.placeholder).toEqual('Enter Username');
+            });
+
+            it('it has an input for password', () => {
+                expect(password).toBeTruthy();
+                expect(password.type).toBe('password');
+                expect(password.placeholder).toEqual('Enter Password');
+            });
+
+            it('it has a register button', () => {
+                expect(registerBtn).toBeTruthy();
+                expect(registerBtn.textContent).toEqual('Sign me up!');
+            })
+            
         })
     })
 })
