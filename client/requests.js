@@ -43,6 +43,8 @@ function listHabits(habit = [], habitsList) {
     habit.text}<br>
     ${habit.timeframe}</label>
             <div class="habit-btns">
+      <button class="count" data-index=${i}
+      id="count${i}">+</button>
       <button class="complete" data-index=${i} id="complete${i}">Mark as Complete</button>
       <button class="delete" data-index=${i} id="delete${i}">Delete</button>
       </div>
@@ -57,7 +59,6 @@ function countComplete(e){ //Clicking on the checkbox
     if (!e.target.matches('input')) return;
     const el = e.target;
     const index = el.dataset.index;
-    habits[index].reps += 1;
 
     if (habits[index].reps === habits[index].totalCounts) {
         habits[index].completed = true;
@@ -70,6 +71,27 @@ function countComplete(e){ //Clicking on the checkbox
     localStorage.setItem("habits", JSON.stringify(habits));
     // console.log(e.target)
 }
+// Count function
+
+function count(e){ //Clicking on the checkbox
+    if (!e.target.matches('.count')) return;
+    const el = e.target;
+    const index = el.dataset.index;
+    habits[index].reps += 1;
+
+    if (habits[index].reps === habits[index].totalCounts) {
+        habits[index].completed = true;
+        habits[index].reps += 0;
+    } else if (habits[index].reps > habits[index].totalCounts) {
+        habits[index].reps = 0;
+        habits[index].completed = false;
+    }
+
+    listHabits(habits, habitsList);
+    localStorage.setItem("habits", JSON.stringify(habits));
+    // console.log(e.target)
+}
+
 
 //Delete Habit
 function deleteHabit(e) {
@@ -104,11 +126,12 @@ addHabits.addEventListener('submit', addHabit);
 habitsList.addEventListener('click', countComplete);
 habitsList.addEventListener('click', deleteHabit);
 habitsList.addEventListener('click', markComplete);
+habitsList.addEventListener('click', count)
 
 listHabits(habits, habitsList);
 
 logOut.addEventListener('click', () => {
-    window.location = ""
+    window.location.pathname = ('client/login.html')
 })
 
 
