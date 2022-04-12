@@ -16,4 +16,4 @@ app.use('/users', userRoutes);
 app.use(authRoutes);
 app.use('/habits', habitRoutes);
 
-module.exports = app
+module.exports = app;

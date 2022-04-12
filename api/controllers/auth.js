@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 async function register(req, res) {
     try{
@@ -15,14 +16,17 @@ async function register(req, res) {
 
 async function login(req, res) {
     try {
-        const user = await User.findByUsername(req.body.username)
+        const user = await User.findByUsername(req.body.username);
         // if (!user) {
         //     throw new Error('No user with this username')
         // }
+        console.log(user)
         const authed = await bcrypt.compare(req.body.password, user.password);
+        console.log(authed)
         if (!!authed) {
             const payload = {username: user.username}
             jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 60}, sendToken)
+            // process.env.JWT_SECRET
             function sendToken(err, token){
                 if(err) {
                   throw new Error('Token creation failed')
@@ -30,14 +34,14 @@ async function login(req, res) {
                 res.status(200).json({ 
                   success: true,
                   token: `Bearer ${token}` 
-                })
-              }
+                });
+              };
             // res.status(200).json({ username: user.username })
         } else {
             throw new Error('User cannot be authenticated')
         }
     } catch (error) {
-        res.status(401).json({ error: `User cannot be authenticated` })
+        res.status(401).json({ error });
     }
 }
 
