@@ -22,8 +22,8 @@ async function login(req, res) {
         const authed = await bcrypt.compare(req.body.password, user.password);
         if (!!authed) {
             const payload = {username: user.username}
-            jwt.sign(payload, 'secret-pass', process.env.JWT_SECRET, {expiresIn: 60}, sendToken)
-            const sendToken = (err, token) => {
+            jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 60}, sendToken)
+            function sendToken(err, token){
                 if(err) {
                   throw new Error('Token creation failed')
                 }
