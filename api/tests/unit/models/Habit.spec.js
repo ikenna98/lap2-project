@@ -21,6 +21,7 @@ const habits = [
         habit_name: 'test habit name',
         frequency: 'daily',
         repetitions: 1,
+        curr_repetitions: 0,
         date: 'date'
 
     }
@@ -58,6 +59,7 @@ describe('Habit model', () => {
                 "habit_name": 'test habit name',
                 "current_streak": 0,
                 "frequency": 'daily',
+                "curr_repetitions": 0,
                 "repetitions": 1,
                 "date": 'date'
             })
@@ -84,6 +86,7 @@ describe('Habit model', () => {
                 "habit_name": 'test habit name',
                 "frequency": 'daily',
                 "repetitions": 1,
+                "curr_repetitions": 0,
                 "date": 'date'
             })
         })
@@ -91,6 +94,81 @@ describe('Habit model', () => {
         it('the error message is correct on unsuccessful db query', async () => {
             return Habit.findHabitsByUsername('fake').catch(error => {
                 expect(error).toBe(`Error getting this users data: `, error)
+            })
+        })
+    })
+
+
+    describe('create', () => {
+        it('it resolves with succesfully created habit', async () => {
+            let habitData = {
+                habit_name: 'test creation',
+                frequency: 'daily',
+                user_id: 10,
+                date: 'date',
+                repetitions: 1,
+                curr_repetitions: 0
+                
+            }
+            jest.spyOn(db, 'query')
+                .mockResolvedValue({rows: 'test'})
+                .mockResolvedValue({rows: [{...habitData, habit_id: 1}]})
+            const createdHabit = await Habit.create(habitData)
+            expect(createdHabit).toEqual({
+                "habit_id": 1,
+                "user_id": 10,
+                "current_streak": 0,
+                "habit_name": 'test creation',
+                "frequency": 'daily',
+                "repetitions": 1,
+                "curr_repetitions": 0,
+                "date": 'date'
+            })
+        })
+
+        test('the error message is correct', async () => {
+            return Habit.create('testing').catch(error => {
+                expect(error).toBe('Error adding habit')
+            })
+        })
+    })
+
+
+    describe('destroy', () => {
+        it('successfully deletes habit', async () => {
+            // creating data to delete
+            const testData = {
+                user_id: 4,
+                habit_name: 'test delete habit',
+                frequency: 'daily',
+                repetitions: 1,
+                curr_repetitions: 0,
+                date: 'date'
+            }
+            jest.spyOn(db, 'query')
+                .mockResolvedValue({rows: 'test'})
+                .mockResolvedValue({rows: [{...testData, habit_id: 2}]})
+
+            const createdTestHabit = await Habit.create(testData)
+            expect(createdTestHabit).toEqual({
+                habit_id: 2,
+                user_id: 4,
+                habit_name: 'test delete habit',
+                current_streak: 0,
+                frequency: 'daily',
+                curr_repetitions: 0,
+                repetitions: 1,
+                date: 'date'
+            })
+
+            id = 2
+            const deleted = await Habit.destroy(id)
+            expect(deleted).toBe('Habit deleted')
+        })
+
+        it('the error message is correct', async () => {
+            return Habit.destroy('test').catch(error => {
+                expect(error).toBe('Error deleting habit')
             })
         })
     })

@@ -7,6 +7,7 @@ class Habit {
         this.habit_name = data.habit_name
         this.current_streak = 0
         this.frequency = data.frequency
+        this.curr_repetitions = data.curr_repetitions
         this.repetitions = data.repetitions
         this.date = data.date
     }
