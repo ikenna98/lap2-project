@@ -163,5 +163,25 @@ describe('login.html', () => {
             })
             
         })
+
+        describe('footer', () => {
+            let footer;
+            let nav;
+
+            beforeEach(() => {
+                footer = document.getElementById('footer');
+                nav = document.getElementById('footer-nav');
+            })
+
+            it('the footer exists and contains a nav', () => {
+                expect(footer).toBeTruthy();
+                expect(footer.children.length).toEqual(1);
+            })
+
+            it('the footer nav exists and has 8 child elements inside', () => {
+                expect(nav).toBeTruthy();
+                expect(nav.children.length).toEqual(8);
+            })
+        })
     })
 })
