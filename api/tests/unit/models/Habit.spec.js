@@ -162,12 +162,26 @@ describe('Habit model', () => {
             })
 
             id = 2
-            const deleted = await Habit.destroy(id)
-            expect(deleted).toBe('Habit deleted')
+            const deletedHabit = await createdTestHabit.destroy()
+            expect(deletedHabit).toBe('Habit deleted')
         })
 
         it('the error message is correct', async () => {
-            return Habit.destroy('test').catch(error => {
+            let fakeHabitData = {
+                habit_name: 'test error deletion',
+                frequency: 'daily',
+                user_id: 10,
+                date: 'date',
+                repetitions: 1,
+                curr_repetitions: 0
+                
+            }
+            jest.spyOn(db, 'query')
+                .mockResolvedValue({rows: 'test'})
+                .mockResolvedValue({rows: [{...fakeHabitData, habit_id: 10}]})
+            const fakeHabit = await Habit.create(fakeHabitData)
+
+            return fakeHabit.destroy().catch(error => {
                 expect(error).toBe('Error deleting habit')
             })
         })
