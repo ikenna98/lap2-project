@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Tracket Login</title>
+    <script defer src="./bundle.js"></script>
 </head>
 <body>
     <section class="login-page">
@@ -15,10 +16,10 @@
             <div class="login-box">
                 <h1>TRACKET</h1>
                 <h2>GOT A HABIT? TRACKET!</h2>
-                <form>
-                    <input id="username" type="text" placeholder="Enter Username">
-                    <input type="password" class="password" placeholder="Enter Password">
-                    <button class="login-btn">Login</button>
+                <form id="login-form">
+                    <input id="username" name="username" type="text" placeholder="Enter Username">
+                    <input type="password" name="password" class="password" placeholder="Enter Password">
+                    <button class="login-btn" type="submit" formmethod="post">Login</button>
                     <p><a href="#">Forgotten Password?</a></p>
                     <button class="register-btn">Create New Account</button>
                 </form>         
@@ -30,12 +31,12 @@
                                 <h2>GOT A HABIT? TRACKET!</h2>
                                 <h4>Create An Account</h4>
                                 <h5>It's quick and easy!</h5>
-                                <form>
-                                    <input type="text" id="first-name" placeholder="Enter First Name"><br>
-                                    <input type="text" id="last-name" placeholder="Enter Last Name"><br>
-                                    <input type="text" class="username" placeholder="Enter Username"><br>
+                                <form id="register-form">
+                                    <input type="text" id="first-name" name="first_name" placeholder="Enter First Name"><br>
+                                    <input type="text" id="last-name" name="surname" placeholder="Enter Last Name"><br>
+                                    <input type="text" class="username" name="username" placeholder="Enter Username"><br>
                                     <input type="password" class="password" name="password" placeholder="Enter Password"><br>
-                                    <button class="register-btn">Sign me up!</button>
+                                    <button class="register-btn" type="submit" formmethod="post">Sign me up!</button>
                             </form>
                         </div>
                     </div>
@@ -56,7 +57,7 @@
             </nav> 
         </footer>
     </section>
-    <script src="./js/login.js"></script>
-    <script src="./js/requests.js"></script>
+    <!-- <script src="./js/login.js"></script> -->
+    <!-- <script src="./js/requests.js"></script> -->
 </body>
 </html>

@@ -1,9 +1,11 @@
 const jwt_decode = require('jwt-decode');
 
 // Checks whether the api is running from localhost or heroku and changes accordingly
-const url = window.location.hostname.includes('localhost')
-    ? 'http://localhost:3000'
-    : '(link for heroku)';
+// const url = window.location.hostname.includes('localhost')
+//     ? 'http://localhost:3000'
+//     : '(link for heroku)';
+
+const url = 'http://localhost:3000'
 
 async function requestLogin(e) {
     e.preventDefault();
@@ -44,5 +46,21 @@ function login(data){
     const token = data.token.split(" ")[1];
     const payload = jwt_decode(token);
     localStorage.setItem('username', payload.username);
-
+    // console.log(window.location.pathname);
+    // console.log(window.location.href);
+    window.location.replace("index.html");
+    // window.location.pathname = '../index.html';
 }
+
+function logout(){
+    console.log('working!')
+    localStorage.clear();
+    window.location.replace('login.html');
+}
+
+function currentUser(){
+    const username = localStorage.getItem('username');
+    return username;
+}
+
+module.exports = { requestLogin, requestRegistration, login, logout}
