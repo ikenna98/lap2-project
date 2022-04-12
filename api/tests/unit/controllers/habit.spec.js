@@ -7,6 +7,17 @@ const mockJson = jest.fn();
 const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: jest.fn() }))
 const mockRes = { status: mockStatus }
 
+const testHabit = {
+    habit_id: 10,
+    user_id: 2,
+    habit_name: 'test habit',
+    current_streak: 0,
+    frequency: 'yearly',
+    curr_repetitions: 0,
+    repetitions: 5,
+    date: '2022-04-12T13:39:21.348Z'
+}
+
 describe('habit controller', () => {
     beforeEach(() => jest.clearAllMocks());
 
@@ -48,5 +59,66 @@ describe('habit controller', () => {
         })
     })
 
-    
+    describe('get habits by username', () => {
+        it('returns status code 200 and all the habits for the specific user', async () => {
+            jest.spyOn(Habit, 'findHabitsByUsername')
+                .mockResolvedValue([{},{}])
+            const mockRequest = {params: {username: 'test'}}
+            await habitController.getHabitsByUsername(mockRequest, mockRes)
+            expect(mockJson).toHaveBeenCalledWith([{},{}])
+            expect(mockStatus).toHaveBeenCalledWith(200);
+        })
+
+        it('it returns with error 404 if it cannot retrieve the habits for the user', async () => {
+            jest.spyOn(Habit, 'findHabitsByUsername')
+                .mockRejectedValue([])
+            const mockRequest = {params: {username: 'fail_test'}}
+            await habitController.getHabitsByUsername(mockRequest, mockRes)
+            expect(mockStatus).toHaveBeenCalledWith(404);
+        })
+    })
+
+    describe('add habit', () => {
+        it('it creates a new habit and returns status code 201', async () => {
+            jest.spyOn(Habit, 'create')
+                .mockResolvedValue(expect.objectContaining(testHabit));
+            
+            const mockRequest = {
+                params: {
+                    username: 'test_user'
+                },
+                body: {
+                    habit_name: 'test habit',
+                    frequency: 'weekly',
+                    curr_repetitions: 0,
+                    repetitions: 5,
+                    current_streak: 0
+                }
+            }
+
+            await habitController.addHabit(mockRequest, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(201);
+            expect(mockJson).toHaveBeenCalledWith(testHabit); 
+        })
+
+        it('it returns status code 500 if habit cannot be created', async () => {
+            jest.spyOn(Habit, 'create')
+                .mockRejectedValue([])
+            const mockRequest = {
+                params: {
+                    username: 'fake_user'
+                },
+                body: {
+                    habit_name: 'fake test habit',
+                    frequency: 'daily',
+                    curr_repetitions: 2,
+                    repetitions: 3,
+                    current_streak: 1
+                }
+            }
+
+            await habitController.addHabit(mockRequest, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+        })
+    })
 })
