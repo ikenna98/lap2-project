@@ -108,7 +108,7 @@ habitsList.addEventListener('click', markComplete);
 listHabits(habits, habitsList);
 
 logOut.addEventListener('click', () => {
-    window.location = ""
+    window.location.pathname = ('client/login.html')
 })
 
 
