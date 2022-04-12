@@ -16,11 +16,11 @@
 .image{
     grid-column: 1/2;
     grid-row: 1/2;
-    background-image: url('/client/images/exercise3.jpg');
+    background-image: url('./images/exercise3.jpg');
 }
 
 .login{
-    background-image: url('/client/images/night.jpg');
+    background-image: url('./images/night.jpg');
 }
 
 .image, .login{
@@ -169,7 +169,7 @@ footer{
 .dashboard-bg{
     height: 100vh;
     width: 100%;
-    background-image: url('/client/images/water3.jpg');
+    background-image: url('./images/water3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: roboto;
