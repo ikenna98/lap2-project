@@ -116,9 +116,30 @@ describe('habit controller', () => {
                     current_streak: 1
                 }
             }
-
             await habitController.addHabit(mockRequest, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(500);
         })
     })
+
+    // not working since static was removed from Habit model > destroy
+
+
+    // describe('delete habit', () => {
+    //     it('returns status code 204 when a habit is successfuly deleted', async () => {
+
+    //         jest.spyOn(Habit, 'destroy')
+    //             .mockResolvedValue('Habit deleted')
+    //         const mockRequest = {params: {id:10}}
+    //         await habitController.deleteHabit(mockRequest, mockRes);
+    //         expect(mockStatus).toHaveBeenCalledWith(204);
+    //     })
+
+    //     it('it returns status code 500 if habit cannot be deleted', async () => {
+    //         jest.spyOn(Habit, 'destroy')
+    //             .mockRejectedValue([])
+    //         const mockRequest = {params: {id:3}}
+    //         await habitController.deleteHabit(mockRequest, mockRes)
+    //         expect(mockStatus).toHaveBeenCalledWith(500);
+    //     })
+    // })
 })
