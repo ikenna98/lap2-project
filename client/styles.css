@@ -21,7 +21,6 @@
 
 .login{
     background-image: url('/client/images/night.jpg');
-    font-family: roboto;
 }
 
 .image, .login{
@@ -32,20 +31,41 @@
 
 .login-box{
     background-color: rgb(240, 187, 15);
-    border: 1px solid black;
-    height: 50%;
-    width: 40%;
+    max-height:600px;
     margin: 30% auto;
 }
 
-h1, h2, form{
+
+.register{
+    font-family: aldrich;
+    max-height:820px;
+    margin: 5% auto;
+    background-color: orange;
+}
+
+.login-box, .register{
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+h1, h2, h4, h5, form{
     font-family: aldrich;
     text-align: center;
-    margin: 30px;
+    margin: 20px auto;
+
 }
 
 h1{
-    font-size: 36px;
+    font-size: 42px;
+}
+
+h5{
+    margin-top: -20px;
 }
 
 form{
@@ -78,6 +98,7 @@ button, #submit{
     font-family: lato;
     font-weight: bold;
     transition: background-color 0.5s;
+    border-radius: 10px;
 }
 
 button:hover, #submit:hover{
@@ -106,21 +127,16 @@ button:hover, #submit:hover{
     display: none;
 }
 
-.register{
-    font-family: arial;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-    margin: 5% auto;
-    padding: 20px;
-    background-color: orange;
-}
-
 .register-close{
     text-align: right;
     cursor: pointer;
 }
 
+.register-close:hover{
+    font-weight: bold;
+    font-size: larger;
+
+}
 
 .register-btn:hover{
     background-color: rgb(79, 11, 144);
@@ -141,6 +157,11 @@ footer{
     text-decoration: none;
     color: #1877f2;
     margin: 25px;
+}
+
+.login-footer a:hover, .dashboard-footer a:hover{
+    font-weight: bold;
+    font-size: 102%;
 }
 
 
@@ -181,16 +202,13 @@ footer{
 }
 
 .dashboard-nav li:hover{
-    background-color: rgb(221, 145, 5) ;
+    text-decoration: underline;
 }
 
 .dashboard-footer{
    padding: 5px 0;
 }
 
-.dashboard-footer a:hover, .popup-close:hover{
-    background-color: rgb(221, 145, 5);
-}
 
 button, .dashboard-nav li, #timeframe, #submit {
     cursor: pointer;
