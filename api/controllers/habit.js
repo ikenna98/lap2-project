@@ -21,13 +21,9 @@ async function getHabitById(req, res) {
 async function getHabitsByUsername(req, res) {
     try {
         const habitsData = await Habit.findHabitsByUsername(req.params.username)
-        if (!habitsData[0]) {
-            res.status(404).json({msg: `User does not exist`})
-        } else {
-            res.status(200).json(habitsData)
-        }
-    } catch (error) {
-        res.status(500).send({error})
+        res.status(200).json(habitsData)
+    } catch (err) {
+        res.status(404).send({ err: err.message });
     }
 }
 
@@ -44,10 +40,15 @@ async function addHabit(req, res) {
 
 async function deleteHabit(req, res) {
     try {
-        const deletedHabit = await Habit.destroy(req.params.id)
-        res.status(204).send(deletedHabit)
+        const deletedHabit = await Habit.findByHabitId(req.params.id);
+        await deletedHabit.destroy();
+        res.status(204).json()
     } catch (error) {
+        if (error.message === 'Error getting this habit'){
+            res.status(404).send({error})
+        } else {
         res.status(500).send({error})
+        }
     }
 }
 
