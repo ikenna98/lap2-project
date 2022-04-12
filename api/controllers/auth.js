@@ -41,4 +41,20 @@ async function login(req, res) {
     }
 }
 
-module.exports = { register, login }
+function verifyToken(req, res, next){
+    const header = req.headers['authorization'];
+    if(header){
+        const token = header.split(' ')[1];
+        jwt.verify(token, process.env.JWT_SECRET, (err,data) => {
+            if(err){
+                res.status(403).json({ error: `Token didn't pass verification`})
+            } else {
+                next();
+            }
+        })
+    } else {
+        res.status(403).json({ error: "Missing token" });
+    }
+}
+
+module.exports = { register, login, verifyToken }
