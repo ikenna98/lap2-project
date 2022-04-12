@@ -277,8 +277,14 @@ button, .dashboard-nav li, #timeframe, #submit {
 .add-habit select {
     border-radius: 10px;
     padding: 10px;
+    margin: 10px;
 }
 
+.add-habit p{
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
 .frequency{
     width: 100%;
     display: flex;
