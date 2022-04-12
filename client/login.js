@@ -1,7 +1,7 @@
 const login = document.querySelector('.login-box')
 const register = document.querySelector('.register-btn');
 const newAccount = document.querySelector('.register-page');
-const close = document.querySelector('.register-close');
+const closer = document.querySelector('.register-close');
 const username = document.getElementById('username');
 const password = document.querySelector('.password');
 const firstName = document.querySelector('#first-name');
@@ -14,6 +14,6 @@ register.addEventListener('click', (e) => {
 
 });
 
-close.addEventListener('click', () => {
+closer.addEventListener('click', () => {
     newAccount.style.display = 'none';
 })
