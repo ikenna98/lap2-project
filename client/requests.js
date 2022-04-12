@@ -74,6 +74,10 @@ function countComplete(e){ //Clicking on the checkbox
 // Count function
 
 function count(e){ //Clicking on the checkbox
+
+    const plus = document.querySelector('count');
+
+
     if (!e.target.matches('.count')) return;
     const el = e.target;
     const index = el.dataset.index;
@@ -81,7 +85,6 @@ function count(e){ //Clicking on the checkbox
 
     if (habits[index].reps === habits[index].totalCounts) {
         habits[index].completed = true;
-        habits[index].reps += 0;
     } else if (habits[index].reps > habits[index].totalCounts) {
         habits[index].reps = 0;
         habits[index].completed = false;
