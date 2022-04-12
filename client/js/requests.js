@@ -32,7 +32,7 @@ function addHabit(e) {
 //List the habit
 
 // Function to add Habits to the HTML
-function listHabits(habit = [], habitsList) {
+function listHabits(habits = [], habitsList) {
     habitsList.innerHTML = habits.map((habit, i) => {
         //What to add onto the HTML
         return `

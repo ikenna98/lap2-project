@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 async function register(req, res) {
     try{
@@ -20,7 +21,18 @@ async function login(req, res) {
         // }
         const authed = await bcrypt.compare(req.body.password, user.password);
         if (!!authed) {
-            res.status(200).json({ username: user.username })
+            const payload = {username: user.username}
+            jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 60}, sendToken)
+            function sendToken(err, token){
+                if(err) {
+                  throw new Error('Token creation failed')
+                }
+                res.status(200).json({ 
+                  success: true,
+                  token: `Bearer ${token}` 
+                })
+              }
+            // res.status(200).json({ username: user.username })
         } else {
             throw new Error('User cannot be authenticated')
         }
@@ -29,4 +41,20 @@ async function login(req, res) {
     }
 }
 
-module.exports = { register, login }
+function verifyToken(req, res, next){
+    const header = req.headers['authorization'];
+    if(header){
+        const token = header.split(' ')[1];
+        jwt.verify(token, process.env.JWT_SECRET, (err,data) => {
+            if(err){
+                res.status(403).json({ error: `Token didn't pass verification`})
+            } else {
+                next();
+            }
+        })
+    } else {
+        res.status(403).json({ error: "Missing token" });
+    }
+}
+
+module.exports = { register, login, verifyToken }
