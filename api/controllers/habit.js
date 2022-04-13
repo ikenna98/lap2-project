@@ -52,4 +52,15 @@ async function deleteHabit(req, res) {
     }
 }
 
-module.exports = { getAllHabits, getHabitById, getHabitsByUsername, addHabit, deleteHabit }
+async function increaseRep(req, res) {
+    try {
+        const habit = await Habit.findByHabitId(req.params.habit_id)
+        await habit.increaseCurrRepetition()
+        const updatedHabit = await Habit.findByHabitId(req.params.habit_id)
+        res.status(200).json(updatedHabit)
+    } catch (error) {
+        res.status(500).json({msg: 'Max reached, cannot be updated.'})
+    }
+}
+
+module.exports = { getAllHabits, getHabitById, getHabitsByUsername, addHabit, deleteHabit, increaseRep }

@@ -5,6 +5,7 @@ const auth = require('../controllers/auth')
 
 router.get('/', auth.verifyToken, habitController.getAllHabits);
 
+
 // do we need a route for this?
 router.get('/:habit_id', auth.verifyToken, habitController.getHabitById);
 
@@ -12,6 +13,8 @@ router.get('/:habit_id', auth.verifyToken, habitController.getHabitById);
 router.get('/users/:username', auth.verifyToken, habitController.getHabitsByUsername);
 
 router.post('/users/:username', auth.verifyToken, habitController.addHabit);
+
+router.patch('/:habit_id', habitController.increaseRep);
 
 router.delete('/delete/:id', auth.verifyToken, habitController.deleteHabit);
 
