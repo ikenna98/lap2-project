@@ -1,7 +1,11 @@
+const auth = require('./auth');
+
 const addHabits = document.querySelector('.add-habit'); //Selecting the form
 const habitsList = document.querySelector('.habits')//Selecting the habit list
 const habits = JSON.parse(localStorage.getItem('habits')) || []; //where we will add the habit list to
-const loadCheck = document.querySelector('.dashboard-page')
+const habitSubmit = document.querySelector('#submit');
+const loadCheck = document.querySelector('.dashboard-page');
+
 // const logOut = document.querySelector('log-out');
 
 //Line 3 = Method on JSON that allows us to convert a string to JSON object that allows us to make habits an array of objects
@@ -32,6 +36,67 @@ function addHabit(e) {
 
 //List the habit
 
+async function listsHabits(){
+    try {
+        const authHabits = await auth.userHabits();
+        authHabits.map((obj) => {
+            const list = habitItem(obj);
+            habitsList.append(list);
+        })
+    } catch (error) {
+        console.warn(error)
+    }
+}
+
+async function createHabit(e){
+    try {
+        e.preventDefault();
+        const create = await auth.postHabit(e);
+        console.log(create);
+        const list = habitItem(create);
+        habitsList.append(list)
+    } catch (error) {
+        console.warn(error)
+    }
+}
+
+function habitItem(obj){
+    const list = document.createElement('li');
+
+    const input = document.createElement('input');
+    input.setAttribute('type','checkbox');
+    input.setAttribute('id', `habit${obj.habit_id}`);
+    list.appendChild(input);
+
+    const label = document.createElement('label');
+    label.setAttribute('for', `habit${obj.habit_id}`);
+    label.textContent = `${obj.curr_repetitions}/${obj.repetitions}     |    ${obj.habit_name}   |    ${obj.frequency}`;
+    list.appendChild(label);
+
+    const div = document.createElement('div');
+    div.setAttribute('class','habit-btns');
+
+    const countBtn = document.createElement('button');
+    countBtn.setAttribute('class','count');
+    countBtn.setAttribute('id',`count${obj.habit_id}`);
+    countBtn.textContent = "+";
+    div.appendChild(countBtn);
+
+    const completeBtn = document.createElement('button');
+    completeBtn.setAttribute('class','complete');
+    completeBtn.setAttribute('id',`complete${obj.habit_id}`);
+    completeBtn.textContent = "Mark as Complete";
+    div.appendChild(completeBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class','delete');
+    deleteBtn.setAttribute('id',`delete${obj.habit_id}`);
+    deleteBtn.textContent = "Delete";
+    div.appendChild(deleteBtn);
+
+    list.appendChild(div); 
+    return list;   
+}
 // Function to add Habits to the HTML
 function listHabits(habits = [], habitsList) {
     habitsList.innerHTML = habits.map((habit, i) => {
@@ -124,11 +189,14 @@ function markComplete(e){
 
 //Listen out for a submit, for the function to run
 if(loadCheck){
-addHabits.addEventListener('submit', addHabit);
+window.addEventListener('load', listsHabits);
+// addHabits.addEventListener('submit', addHabit);
 habitsList.addEventListener('click', countComplete);
 habitsList.addEventListener('click', deleteHabit);
 habitsList.addEventListener('click', markComplete);
-habitsList.addEventListener('click', count)
+habitsList.addEventListener('click', count);
+habitSubmit.addEventListener('submit', createHabit);
+addHabits.addEventListener('submit', createHabit);
 
 listHabits(habits, habitsList)
 };

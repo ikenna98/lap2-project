@@ -5,7 +5,8 @@ const jwt_decode = require('jwt-decode');
 //     ? 'http://localhost:3000'
 //     : '(link for heroku)';
 
-const url = 'http://localhost:3000'
+const url = 'http://localhost:3000';
+const currUser = localStorage.getItem('username');
 
 async function requestLogin(e) {
     e.preventDefault();
@@ -46,13 +47,34 @@ async function userHabits() {
         const options = {
 			headers: new Headers({ 'authorization': localStorage.getItem('token') })
 		};
-        const resp = await fetch(`${url}/habits/users/${currentUser()}`, options);
+        const resp = await fetch(`${url}/habits/users/${currUser}`, options);
         const data = await resp.json();
         if (data.err){ throw Error(data.err); }
-        return console.log(data);
+        return data;
     } catch (err) {
         console.warn(`Error: ${err}`);
     }
+}
+
+async function postHabit(e) {
+	try {
+		const options = {
+			method: 'POST',
+			headers: new Headers({
+				Authorization: localStorage.getItem('token'),
+				'Content-Type': 'application/json',
+			}),
+			body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+		};
+		const resp = await fetch(`${url}/habits/users/${currUser}`, options);
+		const data = await resp.json();
+		if (data.err) {
+			throw new Error(err);
+		}
+		return data;
+	} catch (err) {
+		console.warn(err);
+	}
 }
 
 function login(data){
@@ -73,9 +95,6 @@ function logout(){
     window.location.replace('login.html');
 }
 
-function currentUser(){
-    const username = localStorage.getItem('username');
-    return username;
-}
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits}
+
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit}

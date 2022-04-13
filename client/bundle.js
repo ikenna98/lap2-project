@@ -6,7 +6,8 @@ const jwt_decode = require('jwt-decode');
 //     ? 'http://localhost:3000'
 //     : '(link for heroku)';
 
-const url = 'http://localhost:3000'
+const url = 'http://localhost:3000';
+const currUser = localStorage.getItem('username');
 
 async function requestLogin(e) {
     e.preventDefault();
@@ -47,13 +48,34 @@ async function userHabits() {
         const options = {
 			headers: new Headers({ 'authorization': localStorage.getItem('token') })
 		};
-        const resp = await fetch(`${url}/habits/users/${currentUser()}`, options);
+        const resp = await fetch(`${url}/habits/users/${currUser}`, options);
         const data = await resp.json();
         if (data.err){ throw Error(data.err); }
-        return console.log(data);
+        return data;
     } catch (err) {
         console.warn(`Error: ${err}`);
     }
+}
+
+async function postHabit(e) {
+	try {
+		const options = {
+			method: 'POST',
+			headers: new Headers({
+				Authorization: localStorage.getItem('token'),
+				'Content-Type': 'application/json',
+			}),
+			body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+		};
+		const resp = await fetch(`${url}/habits/users/${currUser}`, options);
+		const data = await resp.json();
+		if (data.err) {
+			throw new Error(err);
+		}
+		return data;
+	} catch (err) {
+		console.warn(err);
+	}
 }
 
 function login(data){
@@ -74,12 +96,9 @@ function logout(){
     window.location.replace('login.html');
 }
 
-function currentUser(){
-    const username = localStorage.getItem('username');
-    return username;
-}
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits}
+
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit}
 
 },{"jwt-decode":4}],2:[function(require,module,exports){
 const auth = require('./auth')
@@ -121,10 +140,14 @@ if(logOut){
 };
 
 },{"./auth":1}],3:[function(require,module,exports){
+const auth = require('./auth');
+
 const addHabits = document.querySelector('.add-habit'); //Selecting the form
 const habitsList = document.querySelector('.habits')//Selecting the habit list
 const habits = JSON.parse(localStorage.getItem('habits')) || []; //where we will add the habit list to
-const loadCheck = document.querySelector('.dashboard-page')
+const habitSubmit = document.querySelector('#submit');
+const loadCheck = document.querySelector('.dashboard-page');
+
 // const logOut = document.querySelector('log-out');
 
 //Line 3 = Method on JSON that allows us to convert a string to JSON object that allows us to make habits an array of objects
@@ -155,6 +178,67 @@ function addHabit(e) {
 
 //List the habit
 
+async function listsHabits(){
+    try {
+        const authHabits = await auth.userHabits();
+        authHabits.map((obj) => {
+            const list = habitItem(obj);
+            habitsList.append(list);
+        })
+    } catch (error) {
+        console.warn(error)
+    }
+}
+
+async function createHabit(e){
+    try {
+        e.preventDefault();
+        const create = await auth.postHabit(e);
+        console.log(create);
+        const list = habitItem(create);
+        habitsList.append(list)
+    } catch (error) {
+        console.warn(error)
+    }
+}
+
+function habitItem(obj){
+    const list = document.createElement('li');
+
+    const input = document.createElement('input');
+    input.setAttribute('type','checkbox');
+    input.setAttribute('id', `habit${obj.habit_id}`);
+    list.appendChild(input);
+
+    const label = document.createElement('label');
+    label.setAttribute('for', `habit${obj.habit_id}`);
+    label.textContent = `${obj.curr_repetitions}/${obj.repetitions}     |    ${obj.habit_name}   |    ${obj.frequency}`;
+    list.appendChild(label);
+
+    const div = document.createElement('div');
+    div.setAttribute('class','habit-btns');
+
+    const countBtn = document.createElement('button');
+    countBtn.setAttribute('class','count');
+    countBtn.setAttribute('id',`count${obj.habit_id}`);
+    countBtn.textContent = "+";
+    div.appendChild(countBtn);
+
+    const completeBtn = document.createElement('button');
+    completeBtn.setAttribute('class','complete');
+    completeBtn.setAttribute('id',`complete${obj.habit_id}`);
+    completeBtn.textContent = "Mark as Complete";
+    div.appendChild(completeBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class','delete');
+    deleteBtn.setAttribute('id',`delete${obj.habit_id}`);
+    deleteBtn.textContent = "Delete";
+    div.appendChild(deleteBtn);
+
+    list.appendChild(div); 
+    return list;   
+}
 // Function to add Habits to the HTML
 function listHabits(habits = [], habitsList) {
     habitsList.innerHTML = habits.map((habit, i) => {
@@ -247,11 +331,14 @@ function markComplete(e){
 
 //Listen out for a submit, for the function to run
 if(loadCheck){
-addHabits.addEventListener('submit', addHabit);
+window.addEventListener('load', listsHabits);
+// addHabits.addEventListener('submit', addHabit);
 habitsList.addEventListener('click', countComplete);
 habitsList.addEventListener('click', deleteHabit);
 habitsList.addEventListener('click', markComplete);
-habitsList.addEventListener('click', count)
+habitsList.addEventListener('click', count);
+habitSubmit.addEventListener('submit', createHabit);
+addHabits.addEventListener('submit', createHabit);
 
 listHabits(habits, habitsList)
 };
@@ -264,7 +351,7 @@ listHabits(habits, habitsList)
 
 
 
-},{}],4:[function(require,module,exports){
+},{"./auth":1}],4:[function(require,module,exports){
 "use strict";function e(e){this.message=e}e.prototype=new Error,e.prototype.name="InvalidCharacterError";var r="undefined"!=typeof window&&window.atob&&window.atob.bind(window)||function(r){var t=String(r).replace(/=+$/,"");if(t.length%4==1)throw new e("'atob' failed: The string to be decoded is not correctly encoded.");for(var n,o,a=0,i=0,c="";o=t.charAt(i++);~o&&(n=a%4?64*n+o:o,a++%4)?c+=String.fromCharCode(255&n>>(-2*a&6)):0)o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(o);return c};function t(e){var t=e.replace(/-/g,"+").replace(/_/g,"/");switch(t.length%4){case 0:break;case 2:t+="==";break;case 3:t+="=";break;default:throw"Illegal base64url string!"}try{return function(e){return decodeURIComponent(r(e).replace(/(.)/g,(function(e,r){var t=r.charCodeAt(0).toString(16).toUpperCase();return t.length<2&&(t="0"+t),"%"+t})))}(t)}catch(e){return r(t)}}function n(e){this.message=e}function o(e,r){if("string"!=typeof e)throw new n("Invalid token specified");var o=!0===(r=r||{}).header?0:1;try{return JSON.parse(t(e.split(".")[o]))}catch(e){throw new n("Invalid token specified: "+e.message)}}n.prototype=new Error,n.prototype.name="InvalidTokenError";const a=o;a.default=o,a.InvalidTokenError=n,module.exports=a;
 
 
