@@ -13,16 +13,22 @@ const firstName = document.querySelector('#first-name');
 const lastName = document.querySelector('#last-name');
 const habit = document.querySelector('.habit');
 
+if (register){
 register.addEventListener('click', (e) => {
     e.preventDefault()
     newAccount.style.display = 'block';
 
-});
+})
+};
 
+if (closer){
 closer.addEventListener('click', () => {
     newAccount.style.display = 'none';
 })
+};
 
-loginForm.addEventListener('submit', auth.requestLogin);
-registerForm.addEventListener('submit', auth.requestRegistration);
-logOut.addEventListener('click', auth.logout);
+if(loginForm){loginForm.addEventListener('submit', auth.requestLogin)};
+
+if(registerForm){registerForm.addEventListener('submit', auth.requestRegistration)};
+
+if(logOut){logOut.addEventListener('click', auth.logout)};
