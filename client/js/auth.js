@@ -55,6 +55,7 @@ function login(data){
 function logout(){
     console.log('working!')
     localStorage.clear();
+    window.location.reload();
     window.location.replace('login.html');
 }
 
