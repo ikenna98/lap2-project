@@ -70,6 +70,23 @@ class Habit {
         })
     }
 
+    increaseCurrRepetition() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const findHabitInfo = await Habit.findByHabitId(this.habit_id)
+
+                if (findHabitInfo.curr_repetitions === findHabitInfo.repetitions) {
+                    reject('Max reached. Cannot update')
+                } else {
+                    const increaseRep = await db.query('UPDATE habits SET curr_repetitions = curr_repetitions + 1 WHERE habit_id = $1;', [ this.habit_id ])
+                    resolve('Repetition increased successfully')
+                }
+            } catch (error) {
+                reject('Failed to update counter to the database')
+            }
+        })
+    }
+
     destroy() {
         return new Promise(async (resolve, reject) => {
             try {
