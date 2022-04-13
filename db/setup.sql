@@ -24,10 +24,14 @@ CREATE TABLE habits (
 
 INSERT INTO users (first_name, surname, username, password)
 VALUES
-    ('Nowshad', 'Ahmed', 'nowshad10', 'password99'),
-    ('Ousama', 'Bousba', 'ousama1234', 'fcbarca'),
-    ('Peter', 'Ly', 'peterlydev', 'chelsea'),
-    ('Ikenna', 'Agada', 'ikenna98', 'buildings');
+    ('Nowshad', 'Ahmed', 'nowshad10', '$2a$10$VLu.yLmdrHbYwTVfiA0xXOFV2FyRx05UpEzXhyG9ZC1kNlR6xNId2'),
+    -- password is password99
+    ('Ousama', 'Bousba', 'ousama1234', '$2a$10$bLXVmmruFnqr7rXsr5qVKuOtkM2Pf/77bKm8HgH7SJ1VBCeeEyXde'),
+    -- password is fcbarca
+    ('Peter', 'Ly', 'peterlydev', '$2a$10$n/ZPfby.eHBnjXOCDqTbi.tvjdj2Q3XcmwRKjL4PENbSMyI5orlWq'),
+    -- password is chelsea
+    ('Ikenna', 'Agada', 'ikenna98', '$2a$10$GpVgYfJOY5dCvR6HQYpCduAQoDCnn/QNsnWmEFHauAgM8TpT0TVFK');
+    -- password is buildings
 
 INSERT INTO habits (user_id, habit_name, frequency, repetitions)
 VALUES
