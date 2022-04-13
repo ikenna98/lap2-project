@@ -83,25 +83,32 @@ const firstName = document.querySelector('#first-name');
 const lastName = document.querySelector('#last-name');
 const habit = document.querySelector('.habit');
 
+if (register){
 register.addEventListener('click', (e) => {
     e.preventDefault()
     newAccount.style.display = 'block';
 
-});
+})
+};
 
+if (closer){
 closer.addEventListener('click', () => {
     newAccount.style.display = 'none';
 })
+};
 
-loginForm.addEventListener('submit', auth.requestLogin);
-registerForm.addEventListener('submit', auth.requestRegistration);
-logOut.addEventListener('click', auth.logout);
+if(loginForm){loginForm.addEventListener('submit', auth.requestLogin)};
+
+if(registerForm){registerForm.addEventListener('submit', auth.requestRegistration)};
+
+if(logOut){logOut.addEventListener('click', auth.logout)};
 
 },{"./auth":1}],3:[function(require,module,exports){
 const addHabits = document.querySelector('.add-habit'); //Selecting the form
 const habitsList = document.querySelector('.habits')//Selecting the habit list
 const habits = JSON.parse(localStorage.getItem('habits')) || []; //where we will add the habit list to
-const logOut = document.querySelector('log-out');
+const loadCheck = document.querySelector('.dashboard-page')
+// const logOut = document.querySelector('log-out');
 
 //Line 3 = Method on JSON that allows us to convert a string to JSON object that allows us to make habits an array of objects
 
@@ -222,17 +229,19 @@ function markComplete(e){
 
 
 //Listen out for a submit, for the function to run
+if(loadCheck){
 addHabits.addEventListener('submit', addHabit);
 habitsList.addEventListener('click', countComplete);
 habitsList.addEventListener('click', deleteHabit);
 habitsList.addEventListener('click', markComplete);
 habitsList.addEventListener('click', count)
 
-listHabits(habits, habitsList);
+listHabits(habits, habitsList)
+};
 
-logOut.addEventListener('click', () => {
-    window.location.pathname = ('client/login.html')
-})
+// logOut.addEventListener('click', () => {
+//     window.location.pathname = ('client/login.html')
+// })
 
 
 
