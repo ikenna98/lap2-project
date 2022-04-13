@@ -41,6 +41,20 @@ async function requestRegistration(e) {
     }
 }
 
+async function userHabits() {
+    try {
+        const options = {
+			headers: new Headers({ 'authorization': localStorage.getItem('token') })
+		};
+        const resp = await fetch(`${url}/habits/users/${currentUser()}`, options);
+        const data = await resp.json();
+        if (data.err){ throw Error(data.err); }
+        return console.log(data);
+    } catch (err) {
+        console.warn(`Error: ${err}`);
+    }
+}
+
 function login(data){
     localStorage.setItem('token', data.token);
     const token = data.token.split(" ")[1];
@@ -64,4 +78,4 @@ function currentUser(){
     return username;
 }
 
-module.exports = { requestLogin, requestRegistration, login, logout}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits}

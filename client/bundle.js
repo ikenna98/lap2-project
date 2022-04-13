@@ -42,6 +42,20 @@ async function requestRegistration(e) {
     }
 }
 
+async function userHabits() {
+    try {
+        const options = {
+			headers: new Headers({ 'authorization': localStorage.getItem('token') })
+		};
+        const resp = await fetch(`${url}/habits/users/${currentUser()}`, options);
+        const data = await resp.json();
+        if (data.err){ throw Error(data.err); }
+        return console.log(data);
+    } catch (err) {
+        console.warn(`Error: ${err}`);
+    }
+}
+
 function login(data){
     localStorage.setItem('token', data.token);
     const token = data.token.split(" ")[1];
@@ -65,7 +79,7 @@ function currentUser(){
     return username;
 }
 
-module.exports = { requestLogin, requestRegistration, login, logout}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits}
 
 },{"jwt-decode":4}],2:[function(require,module,exports){
 const auth = require('./auth')
@@ -101,7 +115,10 @@ if(loginForm){loginForm.addEventListener('submit', auth.requestLogin)};
 
 if(registerForm){registerForm.addEventListener('submit', auth.requestRegistration)};
 
-if(logOut){logOut.addEventListener('click', auth.logout)};
+if(logOut){
+    logOut.addEventListener('click', auth.logout);
+    window.addEventListener('load', auth.userHabits);
+};
 
 },{"./auth":1}],3:[function(require,module,exports){
 const addHabits = document.querySelector('.add-habit'); //Selecting the form

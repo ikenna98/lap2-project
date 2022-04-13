@@ -31,4 +31,7 @@ if(loginForm){loginForm.addEventListener('submit', auth.requestLogin)};
 
 if(registerForm){registerForm.addEventListener('submit', auth.requestRegistration)};
 
-if(logOut){logOut.addEventListener('click', auth.logout)};
+if(logOut){
+    logOut.addEventListener('click', auth.logout);
+    window.addEventListener('load', auth.userHabits);
+};
