@@ -8,6 +8,11 @@ const jwt_decode = require('jwt-decode');
 const url = 'http://localhost:3000';
 const currUser = localStorage.getItem('username');
 
+function currentUser() {
+    const username = localStorage.getItem('username')
+    return username;
+}
+
 async function requestLogin(e) {
     e.preventDefault();
     try {
@@ -133,4 +138,4 @@ function logout(){
 
 
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps, deleteHabit, currUser}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps, deleteHabit, currUser, currentUser}

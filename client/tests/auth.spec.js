@@ -38,7 +38,39 @@ describe('submit the login form', () => {
         it('it logs out', async () => {
             await test.logout();
         })
+    })
+})
 
+describe('new habit, delete, update', () => {
+    beforeEach(() => {
+        test = require('../js/auth');
+        event = { preventDefault: jest.fn() }
+    })
 
+    afterEach(() => {
+        fetch.resetMocks()
+    })
+
+    it('creates new habit', async () => {
+        const event = { preventDefault: jest.fn(), target: {habit_name: 'test', frequency: 10} }
+        await test.postHabit(event)
+    })
+
+    it('deletes habit', async () => {
+        const event = { preventDefault: jest.fn(), target: {habit_id: 4} }
+        await test.deleteHabit(event)
+    })
+
+    it('increases counter', async () => {
+        const event = {habit_id: 4}
+        await test.patchReps(event)
+    })
+
+    it('checks the current user', async () => {
+        test.currentUser();
+    })
+
+    it('retrieves habits list', async () => {
+        await test.userHabits();
     })
 })
