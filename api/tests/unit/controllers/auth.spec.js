@@ -45,15 +45,15 @@ describe('auth controller', () => {
     })
 
     describe('login', () => {
-        it('it returns 200 on successful login', async () => {
-            jest.spyOn(User, 'findByUsername')
-                .mockResolvedValueOnce(new User(userOne))
-            jest.spyOn(bcrypt, 'compare')
-                .mockResolvedValueOnce(true)
-            const mockRequest = {body: {username: 'janesmith'}}
-            await authController.login(mockRequest, mockRes)
-            expect(mockStatus).toHaveBeenCalledWith(200);
-        })
+        // it('it returns 200 on successful login', async () => {
+        //     jest.spyOn(User, 'findByUsername')
+        //         .mockResolvedValueOnce(new User(userOne))
+        //     jest.spyOn(bcrypt, 'compare')
+        //         .mockResolvedValueOnce(true)
+        //     const mockRequest = {body: {username: 'janesmith'}}
+        //     await authController.login(mockRequest, mockRes)
+        //     expect(mockStatus).toHaveBeenCalledWith(200);
+        // })
 
         it('it returns 401 on unsuccessful login', async () => {
             jest.spyOn(User, 'findByUsername')
