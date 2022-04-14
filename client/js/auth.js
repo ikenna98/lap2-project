@@ -98,6 +98,21 @@ async function patchReps(habit_id) {
 	}
 }
 
+async function deleteHabit(id) {
+	try {
+		const options = {
+			method: 'DELETE',
+			headers: new Headers({ Authorization: localStorage.getItem('token') }),
+		};
+		const response = await fetch(`${url}/habits/delete/${id}`, options);
+		if (response.err) {
+			throw Error(err);
+		}
+	} catch (err) {
+		console.warn(err);
+	}
+}
+
 function login(data){
     localStorage.setItem('token', data.token);
     const token = data.token.split(" ")[1];
@@ -118,4 +133,4 @@ function logout(){
 
 
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps, deleteHabit, currUser}
