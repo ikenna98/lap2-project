@@ -25,7 +25,7 @@ async function login(req, res) {
         console.log(authed)
         if (!!authed) {
             const payload = {username: user.username}
-            jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 60}, sendToken)
+            jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: 180}, sendToken)
             // process.env.JWT_SECRET
             function sendToken(err, token){
                 if(err) {
