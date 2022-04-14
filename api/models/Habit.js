@@ -41,7 +41,7 @@ class Habit {
             try {
                 const checkUsername = await db.query(`SELECT * FROM users WHERE username = $1;`, [ username ]);
                 if (checkUsername.rows[0]) {
-                    const userHabitData = await db.query(`SELECT * FROM habits JOIN users ON habits.user_id = users.id WHERE users.username = $1;`, [ username ]);
+                    const userHabitData = await db.query(`SELECT * FROM habits JOIN users ON habits.user_id = users.id WHERE users.username = $1 ORDER BY habit_id;`, [ username ]);
                     let userHabits = userHabitData.rows.map(h => new Habit(h))
                     if (!userHabits[0]) {
                         throw new Error(`User has no habits`)
