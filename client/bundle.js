@@ -78,6 +78,27 @@ async function postHabit(e) {
 	}
 }
 
+async function patchReps(habit_id) {
+	try {
+		const options = {
+			method: 'PATCH',
+			headers: new Headers({
+				Authorization: localStorage.getItem('token'),
+				// 'Content-Type': 'application/json',
+			}),
+			// body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+		};
+		const resp = await fetch(`${url}/habits/${habit_id}`, options);
+		const data = await resp.json();
+		if (data.err) {
+			throw new Error(err);
+		}
+		return data;
+	} catch (err) {
+		console.warn(err);
+	}
+}
+
 function login(data){
     localStorage.setItem('token', data.token);
     const token = data.token.split(" ")[1];
@@ -98,7 +119,7 @@ function logout(){
 
 
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps}
 
 },{"jwt-decode":4}],2:[function(require,module,exports){
 const auth = require('./auth')
@@ -146,6 +167,8 @@ const addHabits = document.querySelector('.add-habit'); //Selecting the form
 const habitsList = document.querySelector('.habits')//Selecting the habit list
 const habits = JSON.parse(localStorage.getItem('habits')) || []; //where we will add the habit list to
 const habitSubmit = document.querySelector('#submit');
+const countBtn = document.querySelectorAll('.count');
+const countBtn1 = document.querySelector('#count1');
 const loadCheck = document.querySelector('.dashboard-page');
 
 // const logOut = document.querySelector('log-out');
@@ -222,6 +245,14 @@ function habitItem(obj){
     countBtn.setAttribute('class','count');
     countBtn.setAttribute('id',`count${obj.habit_id}`);
     countBtn.textContent = "+";
+    // countBtn.addEventListener('click', addReps(obj, label));
+    countBtn.addEventListener('click', async function(){
+        console.log(obj.habit_id)
+        await auth.patchReps(obj.habit_id);
+        label.textContent = `${obj.curr_repetitions}/${obj.repetitions}     |    ${obj.habit_name}   |    ${obj.frequency}`;
+        location.reload();
+    });
+    // countBtn.addEventListener('click', window.location.reload());
     div.appendChild(countBtn);
 
     const completeBtn = document.createElement('button');
@@ -238,6 +269,12 @@ function habitItem(obj){
 
     list.appendChild(div); 
     return list;   
+}
+
+function addReps (obj, label){
+    auth.patchReps(obj.habit_id);
+    return label.textContent = `${obj.curr_repetitions}/${obj.repetitions}     |    ${obj.habit_name}   |    ${obj.frequency}`;
+    
 }
 // Function to add Habits to the HTML
 function listHabits(habits = [], habitsList) {
@@ -331,14 +368,24 @@ function markComplete(e){
 
 //Listen out for a submit, for the function to run
 if(loadCheck){
-window.addEventListener('load', listsHabits);
+window.addEventListener('DOMContentLoaded', listsHabits);
 // addHabits.addEventListener('submit', addHabit);
 habitsList.addEventListener('click', countComplete);
 habitsList.addEventListener('click', deleteHabit);
 habitsList.addEventListener('click', markComplete);
-habitsList.addEventListener('click', count);
+// habitsList.addEventListener('click', count);
 habitSubmit.addEventListener('submit', createHabit);
 addHabits.addEventListener('submit', createHabit);
+// countBtn1.addEventListener('click', ()=>{
+//     console.log('click');
+// })
+// window.addEventListener('load', () => {
+//     Array.from(countBtn).forEach(b => {
+//         b.addEventListener('click', function() {
+//          console.log("clicked");});
+//     })
+// })
+// countBtn.addEventListener("click", addReps);
 
 listHabits(habits, habitsList)
 };

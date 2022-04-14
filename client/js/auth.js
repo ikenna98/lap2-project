@@ -77,6 +77,27 @@ async function postHabit(e) {
 	}
 }
 
+async function patchReps(habit_id) {
+	try {
+		const options = {
+			method: 'PATCH',
+			headers: new Headers({
+				Authorization: localStorage.getItem('token'),
+				// 'Content-Type': 'application/json',
+			}),
+			// body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+		};
+		const resp = await fetch(`${url}/habits/${habit_id}`, options);
+		const data = await resp.json();
+		if (data.err) {
+			throw new Error(err);
+		}
+		return data;
+	} catch (err) {
+		console.warn(err);
+	}
+}
+
 function login(data){
     localStorage.setItem('token', data.token);
     const token = data.token.split(" ")[1];
@@ -97,4 +118,4 @@ function logout(){
 
 
 
-module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit}
+module.exports = { requestLogin, requestRegistration, login, logout, userHabits, postHabit, patchReps}
