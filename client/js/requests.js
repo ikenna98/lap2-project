@@ -251,5 +251,5 @@ if(loadCheck){
 // })
 
 
-
+module.exports = { createHabit, listsHabits, habitItem }
 
