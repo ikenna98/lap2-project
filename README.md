@@ -26,7 +26,9 @@ This aim of this project was to create a habit tracking website where a user can
 - Express.js
 - PostgreSQL
 - Docker
-
+### Test Coverage
+- API test coverage: 84%
+- ![API-test-coverage](https://user-images.githubusercontent.com/91071953/163357066-0dda2172-cca2-497f-8dae-c66ed580b96b.png)
 ## Wins & Challenges
 ### Wins
 - Login/register functionality is all working, and doesn't allow unauthorised users access to the site.
@@ -35,4 +37,4 @@ This aim of this project was to create a habit tracking website where a user can
 
 ### Challenges
 - Streaks were hard to implement, due to lack of timing as we has one less day.
-- Initial problems regarding docker.
+- Frontend code was finished late so no time to fully implement client side testing.
