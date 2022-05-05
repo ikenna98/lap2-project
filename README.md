@@ -1,5 +1,7 @@
 # Habit Tracking App - LAP 2 Project
 
+##### [Click here to view the site](https://lap2-project-site.netlify.app/)
+
 ### Contributors:
 - [Peter Ly](https://github.com/peterlydev)
 - [Ikenna Agada](https://github.com/ikenna98)
