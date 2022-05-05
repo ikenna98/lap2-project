@@ -24,13 +24,13 @@ CREATE TABLE habits (
 
 INSERT INTO users (first_name, surname, username, password)
 VALUES
-    ('Nowshad', 'Ahmed', 'nowshad10', '$2a$10$VLu.yLmdrHbYwTVfiA0xXOFV2FyRx05UpEzXhyG9ZC1kNlR6xNId2'),
+    ('Nowshad', 'Ahmed', 'nowshad10', '$2a$10$0ml3qHkeSA9jRUUMmOj7Oein4xdPFEIFMrIxaF3Se9NpTQDm12nxm'),
     -- password is password99
-    ('Ousama', 'Bousba', 'ousama1234', '$2a$10$bLXVmmruFnqr7rXsr5qVKuOtkM2Pf/77bKm8HgH7SJ1VBCeeEyXde'),
+    ('Ousama', 'Bousba', 'ousama1234', '$2a$10$kSSPdH9UPnoVo3vbYDX8u.i0c2gm8d5thuZ3bTP0hsMRi/rtEdTtu'),
     -- password is fcbarca
-    ('Peter', 'Ly', 'peterlydev', '$2a$10$n/ZPfby.eHBnjXOCDqTbi.tvjdj2Q3XcmwRKjL4PENbSMyI5orlWq'),
+    ('Peter', 'Ly', 'peterlydev', '$2a$10$FUchlNezmuO8aeHFORv4weW2zkMJTM/OTP3W234YJme7s.HueUe1i'),
     -- password is chelsea
-    ('Ikenna', 'Agada', 'ikenna98', '$2a$10$GpVgYfJOY5dCvR6HQYpCduAQoDCnn/QNsnWmEFHauAgM8TpT0TVFK');
+    ('Ikenna', 'Agada', 'ikenna98', '$2a$10$9vq8y9dG.ZR39QbzRF4.IenTtSqOUKWHDckzGxdvTxCH6iwjcdgIi');
     -- password is buildings
 
 INSERT INTO habits (user_id, habit_name, frequency, repetitions)
