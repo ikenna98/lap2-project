@@ -2,6 +2,8 @@
 
 ##### [Click here to view the site](https://lap2-project-site.netlify.app/)
 
+#### To view the deployed submodules switch to the deploy branch
+
 ### Contributors:
 - [Peter Ly](https://github.com/peterlydev)
 - [Ikenna Agada](https://github.com/ikenna98)
